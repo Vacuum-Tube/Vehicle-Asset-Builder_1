@@ -1,0 +1,14 @@
+function data()
+return {
+	type = "ASSET_TRACK",
+	description = {
+		name = _("con_name"),
+		description = _("con_desc_multiple"),
+	},
+	categories = { "vehicles" },
+	order = 292640202 + 4,
+	skipCollision = true,
+	autoRemovable = false,
+	params = (require "params/Vehicle_Asset_Builder")("multiple").paramsDef,
+}
+end

@@ -1,0 +1,17 @@
+function data()
+return {
+	type = "ASSET_TRACK",
+	description = {
+		name = _("con_name"),
+		description = _("con_desc_locomotive"),
+	},
+	categories = { "vehicles" },
+	order = 292640202 + 1,
+	skipCollision = true,
+	autoRemovable = false,
+	params = (require "params/Vehicle_Asset_Builder")("locomotive").paramsDef,
+	-- updateFn = function(params)
+		-- script outsourced
+	-- end
+}
+end

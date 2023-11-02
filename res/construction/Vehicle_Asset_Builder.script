@@ -1,0 +1,57 @@
+local transf = require "transf"
+local vec3 = require "vec3"
+
+local VABparamsFun = require "params/Vehicle_Asset_Builder"
+local VABparamsAll = {}
+local vehicles = {
+	locomotive = {},
+	waggon = {},
+	multiple = {},
+	bus = {},
+	truck = {},
+	tram = {},
+	ship = {},
+	plane = {},
+}
+for vehicle,_ in pairs(vehicles) do
+	VABparamsAll[vehicle] = VABparamsFun(vehicle)
+end
+
+
+function data()
+return {
+	updateFn = function(constrParams,scriptParams)  -- definition:  base_config  game.config.ConstructWithModules
+		
+		local vehicle = scriptParams.type
+		local VABparams = VABparamsAll[vehicle]
+		
+		local result = { }
+		result.models = { }
+		
+		local rotZ = 0--VABparams.RotationZ.getValue(constrParams)  -- grad
+		local rotY = VABparams.RotationY.getValue(constrParams)  -- promille
+		local traX = VABparams.OffsetX.getValue(constrParams)
+		local traY = 0--VABparams.OffsetY.getValue(constrParams)
+		local traZ = VABparams.OffsetZ.getValue(constrParams)
+		local modelIdx = VABparams.Model.getIndex(constrParams)
+		local model = scriptParams.modelIds[modelIdx+1]
+		
+		table.insert(result.models, {
+			id = model,
+			transf = transf.rotZYXTransl(vec3.new(math.rad(rotZ), math.atan(rotY/1000), 0), vec3.new(traX, traY, traZ ) )
+		} )
+		
+		result.terrainAlignmentLists = { {
+			type = "EQUAL",
+			faces = {},
+		} }
+		
+		result.groundFaces = { {  -- asset clickable
+			face = { { 0, 0 }, { 0, 0.01 }, { 0.01, 0 } },
+			modes = { { type = "FILL", key = "none.lua" } },
+		} }
+		
+		return result
+	end,
+}
+end
