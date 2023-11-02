@@ -19,7 +19,7 @@ It is not possible to make these adjustments by script, I tried that.
 In some cases, a dedicated asset mod is probably better.
 
 Benefits:
--no line and maneuvering necessary
+-No line and maneuvering necessary
 -Savegame compatible (since no own models)
 -Asset clickable and modifiable
 -Centimeter-precise shift, so that perfect "coupling" of wagons is possible
@@ -30,8 +30,8 @@ Disadvantages:
 -Lights are always on
 -Color cannot be changed
 
-Within each vehicle category, the vehicles can be selected via a combo box and are sorted by availability year.
-Logo materials are filtered out, as the vanilla vehicles have remains of TPF1 logos.
+Within each vehicle category, the vehicles can be selected via a ComboBox and are sorted by availability year.
+Logo materials are filtered out, as the vanilla vehicles have remains of TPF1 logos (shouldn't cause complications, anyway can be switched off with the setting).
 ]],
 		con_name = "Vehicle Asset Builder",
 		con_desc_locomotive = "Locomotives",
@@ -63,7 +63,7 @@ Diese Anpassungen skript-seitig durchzuführen ist nicht möglich, ich habe es v
 Für manche Fälle ist man daher mit einer dedizierten Asset-Mod besser beraten.
 
 Vorteile:
--keine Linie und Rangieren nötig
+-Keine Linie und Rangieren nötig
 -Savegame kompatibel (da keine eigenen Modelle)
 -Asset anklickbar und modifizierbar
 -Centimeter-genaue Verschiebung, sodass perfektes "Ankuppeln" von Waggons möglich ist
@@ -75,7 +75,7 @@ Nachteile:
 -Farbe nicht änderbar
 
 Innerhalb jeder Fahrzeugkategorie sind die Fahrzeuge über eine ComboBox auswählbar und nach Erscheinungsjahr sortiert.
-Logo-Materialen werden rausgefiltert, da bei den Vanilla-Fahrzeugen noch Übereste von TPF1-Logos vorhanden sind.
+Es werden Logo-Materialen rausgefiltert, da bei den Vanilla-Fahrzeugen noch Übereste von TPF1-Logos vorhanden sind (sollte nicht zu Komplikationen führen, trotzdem per Einstellung abschaltbar).
 ]],
 		con_desc_locomotive = "Lokomotiven",
 		con_desc_waggon = "Waggons",
@@ -90,6 +90,7 @@ Logo-Materialen werden rausgefiltert, da bei den Vanilla-Fahrzeugen noch Überes
 		Vehicle = "Fahrzeug",
 		Slope = "Neigung",
 		offz_tt = "Schienenoberkante: 1.05",
+		Mirror = "Spiegeln",
 	}
 }
 end

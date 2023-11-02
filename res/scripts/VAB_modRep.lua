@@ -44,6 +44,8 @@ local function getVehicleType(model)
 		else 
 			return "locomotive"
 		end
+	elseif isMultipleUnit(model) then  -- groupFileName
+		return "group"
 	elseif isRoadVehicle(model) then
 		if isBus(model) then
 			return "bus"
@@ -72,8 +74,13 @@ function mr.getModelsVehicles()
 		end
 	end
 	
-	table.sort(vehicles, function (a,b) 
-		return a.model.metadata.availability.yearFrom > b.model.metadata.availability.yearFrom
+	table.sort(vehicles, function (a,b)
+		if a.model.metadata.availability.yearFrom == b.model.metadata.availability.yearFrom then
+			--return a.id < b.id
+			return a.model.metadata.description.name < b.model.metadata.description.name  -- sort with name if year is equal
+		else
+			return a.model.metadata.availability.yearFrom > b.model.metadata.availability.yearFrom
+		end
 	end )
 	
 	local ids = {
@@ -99,24 +106,29 @@ function mr.getModelsVehicles()
 	
 	for i,vehicle in pairs(vehicles) do  -- categorize
 		--print(vehicle.id)
-		--local carr = vehicle.model.metadata.transportVehicle.carrier
 		local vtype = getVehicleType(vehicle.model)
 		--print(vtype)
-		local name = vehicle.model.metadata.description.name
-		if name == "" then
-			name = string.strip(vehicle.id, "vehicle/")
-		else
-			local region
-			if vehicle.id:find("/usa/") then
-				region = "Usa"
-			elseif vehicle.id:find("/asia/") then
-				region = "Asia"
+		if ids[vtype] then
+			local name = vehicle.model.metadata.description.name
+			if name == "" then
+				name = string.strip(vehicle.id, "vehicle/")
+			else
+				local region
+				if vehicle.id:find("/usa/") then
+					region = "Usa"
+				elseif vehicle.id:find("/asia/") then
+					region = "Asia"
+				end
+				name = string.format("%s (%s%s)", name, vehicle.model.metadata.availability.yearFrom, region and (", "..region) or "" )
+				--name = string.format("%s (%s)", name, string.strip(vehicle.id, "vehicle/") )
 			end
-			name = string.format("%s (%s%s)", name, vehicle.model.metadata.availability.yearFrom, region and (", "..region) or "" )
-			--name = string.format("%s (%s)", name, string.strip(vehicle.id, "vehicle/") )
+			table.insert(ids[vtype], vehicle.id)
+			table.insert(names[vtype], name)
+		else
+			if not vtype=="group" then
+				print("Vehicle Asset Builder", "vehicle: "..vehicle.id, "type: "..vtype)
+			end
 		end
-		table.insert(ids[vtype], vehicle.id)
-		table.insert(names[vtype], name)
 	end
 	
 	return ids, names

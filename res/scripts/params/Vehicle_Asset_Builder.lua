@@ -31,6 +31,7 @@ return function(vehicle)
 		OffsetZ = ParamBuilder.Slider(keyprefix.."OffsetZ", "Offset Z [m]", ParamBuilder.range(0,1.5,0.01), offz_def[vehicle], offz_tt[vehicle] ),
 		--RotationZ = ParamBuilder.Slider(keyprefix.."RotationZ", "Rotation Z (Ebene) [°]", ParamBuilder.range(0,360,5) ),
 		RotationY = ParamBuilder.Slider(keyprefix.."RotationY", "Rotation Y (".._("Slope")..") [‰]", ParamBuilder.rangeSymm(slope[vehicle]), slope[vehicle] ),
+		Mirror = ParamBuilder.Checkbox(keyprefix.."Mirror", _("Mirror"), false),
 	}
 
 	params.paramsDef = { -- for definition in .con
@@ -40,6 +41,7 @@ return function(vehicle)
 		params.OffsetZ.params,
 		--params.RotationZ.params,
 		params.RotationY.params,
+		params.Mirror.params,
 	}
 
 	return params

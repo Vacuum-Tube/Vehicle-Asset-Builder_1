@@ -33,12 +33,17 @@ return {
 		local traX = VABparams.OffsetX.getValue(constrParams)
 		local traY = 0--VABparams.OffsetY.getValue(constrParams)
 		local traZ = VABparams.OffsetZ.getValue(constrParams)
+		local mirr = VABparams.Mirror.getBool(constrParams) and -1 or 1
 		local modelIdx = VABparams.Model.getIndex(constrParams)
 		local model = scriptParams.modelIds[modelIdx+1]
 		
 		table.insert(result.models, {
 			id = model,
-			transf = transf.rotZYXTransl(vec3.new(math.rad(rotZ), math.atan(rotY/1000), 0), vec3.new(traX, traY, traZ ) )
+			transf = transf.scaleRotZYXTransl(
+				vec3.new(mirr, mirr, 1), 
+				vec3.new(math.rad(rotZ), math.atan(rotY/1000), 0),
+				vec3.new(traX, traY, traZ ) 
+			)
 		} )
 		
 		result.terrainAlignmentLists = { {
