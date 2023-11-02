@@ -29,7 +29,7 @@ local function isTram(model)
 end
 
 local function isBus(model)
-	return model.metadata.seatProvider.drivingLicense == 0  -- cargo not accessible...
+	return model.metadata.seatProvider and (model.metadata.seatProvider.drivingLicense == 0)  -- cargo not accessible...
 end
 
 

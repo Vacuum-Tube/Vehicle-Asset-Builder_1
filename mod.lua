@@ -6,7 +6,7 @@ function data()
 		info = {
 			name = "Vehicle Asset Builder",
 			description = _("mod_desc"),
-			minorVersion = 0,
+			minorVersion = 1,
 			severityAdd = "NONE",
 			severityRemove = "WARNING",
 			tags = {"Vehicle", "Asset", "Track Asset", "Brush Asset", "Script Mod"},
